@@ -6,12 +6,33 @@ Simple in-memory TODO web app using FastAPI and Jinja2 templates.
 
 - `app/main.py` — FastAPI application
 - `app/templates/index.html` — Jinja2 template
-- `app/requirements.txt` — Python dependencies
+- `requirements.txt` — Python dependencies
+- `terraform/` — Infrastructure as Code for AWS deployment
+
+### Folder Structure
+
+```
+Todo-app/
+├── README.md                 # This file
+├── requirements.txt          # Python dependencies
+├── app/
+│   ├── main.py              # FastAPI application
+│   ├── __pycache__/         # Python cache files
+│   └── templates/
+│       └── index.html       # Jinja2 template
+└── terraform/
+    ├── main.tf              # Terraform main configuration
+    ├── provider.tf          # AWS provider settings
+    ├── ec2.tf               # EC2 instance configuration
+    ├── security_group.tf    # Security group configuration
+    └── output.tf            # Terraform outputs
+```
 
 ## Requirements
 
 - Python 3.8+
-- See `app/requirements.txt` for exact packages
+- Terraform 1.0+ (for infrastructure deployment)
+- See `requirements.txt` for exact Python packages
 
 ## Setup
 
@@ -28,7 +49,7 @@ python -m venv .venv
 2. Install dependencies:
 
 ```bash
-pip install -r app/requirements.txt
+pip install -r requirements.txt
 ```
 
 3. (Optional) Create a `.env` file in the project root to override app settings:
