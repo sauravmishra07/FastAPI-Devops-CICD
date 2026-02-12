@@ -1,122 +1,514 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <title>{{ app_name }}</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        background: rgba(30, 41, 59, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 40px;
+        width: 100%;
+        max-width: 550px;
+        border-radius: 24px;
+        box-shadow:
+          0 25px 50px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+        color: #e2e8f0;
+        animation: fadeIn 0.4s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        margin: 0 0 8px 0;
+        font-weight: 600;
+        font-size: 32px;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      h1 i {
+        -webkit-text-fill-color: #60a5fa;
+      }
+
+      p.version {
+        font-size: 13px;
+        color: #94a3b8;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      form {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .input-wrapper {
+        flex: 1;
+        position: relative;
+      }
+
+      .input-wrapper i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 13px 14px 13px 42px;
+        border-radius: 12px;
+        border: 1px solid rgba(100, 116, 139, 0.3);
+        background: rgba(15, 23, 42, 0.6);
+        color: #e2e8f0;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+
+      input[type="text"]::placeholder {
+        color: #64748b;
+      }
+
+      input[type="text"]:focus {
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      button {
+        padding: 13px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+
+      .add-btn {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      }
+
+      .add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+      }
+
+      .add-btn:active {
+        transform: translateY(0);
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: rgba(15, 23, 42, 0.5);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        font-size: 13px;
+        color: #94a3b8;
+      }
+
+      .stats i {
+        margin-right: 6px;
+        color: #60a5fa;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        background: rgba(51, 65, 85, 0.5);
+        border: 1px solid rgba(100, 116, 139, 0.2);
+        border-radius: 14px;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+      }
+
+      li:hover {
+        background: rgba(51, 65, 85, 0.7);
+        border-color: rgba(100, 116, 139, 0.4);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .title {
+        font-size: 14.5px;
+        word-break: break-word;
+        line-height: 1.5;
+        color: #e2e8f0;
+      }
+
+      li.completed {
+        opacity: 0.6;
+      }
+
+      li.completed .title {
+        text-decoration: line-through;
+        color: #94a3b8;
+      }
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: #3b82f6;
+        border-radius: 6px;
+      }
+
+      .right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        margin-left: 12px;
+      }
+
+      .meta {
+        font-size: 11px;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .meta i {
+        font-size: 10px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 6px;
+      }
+
+      .edit-btn {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        padding: 8px 12px;
+        font-size: 13px;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+      }
+
+      .edit-btn:hover {
+        background: rgba(59, 130, 246, 0.25);
+        border-color: rgba(59, 130, 246, 0.5);
+        transform: scale(1.05);
+      }
+
+      .delete-btn {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        padding: 8px 12px;
+        font-size: 13px;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .delete-btn:hover {
+        background: rgba(239, 68, 68, 0.25);
+        border-color: rgba(239, 68, 68, 0.5);
+        transform: scale(1.05);
+      }
+
+      .controls {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+      }
+
+      .clear-btn {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+
+      .clear-btn:hover {
+        background: rgba(239, 68, 68, 0.25);
+        border-color: rgba(239, 68, 68, 0.5);
+      }
+
+      .empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #64748b;
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .empty i {
+        font-size: 48px;
+        opacity: 0.4;
+      }
+
+      @media (max-width: 600px) {
         .container {
-            background: white;
-            padding: 30px;
-            width: 400px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+          padding: 30px 20px;
         }
 
         h1 {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        p.version {
-            text-align: center;
-            font-size: 12px;
-            color: gray;
-            margin-bottom: 20px;
+          font-size: 26px;
         }
 
         form {
-            display: flex;
-            gap: 10px;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
+          flex-direction: column;
         }
 
         .add-btn {
-            background: #667eea;
-            color: white;
-        }
-
-        .add-btn:hover {
-            background: #5563d1;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
+          justify-content: center;
         }
 
         li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            background: #f4f4f4;
-            margin-bottom: 8px;
-            border-radius: 6px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
         }
 
-        .delete-btn {
-            background: #ff4d4d;
-            color: white;
+        .right {
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          margin-left: 32px;
         }
 
-        .delete-btn:hover {
-            background: #cc0000;
+        .stats {
+          flex-direction: column;
+          gap: 8px;
+          text-align: center;
         }
-
-        .empty {
-            text-align: center;
-            color: gray;
-            margin-top: 20px;
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>{{ app_name }}</h1>
-        <p class="version">Version {{ app_version }}</p>
+      <div class="header">
+        <h1><i class="fas fa-check-circle"></i>{{ app_name }}</h1>
+        <p class="version">
+          <i class="fas fa-code-branch"></i>Version {{ app_version }}
+        </p>
+      </div>
 
-        <form method="post" action="/add">
-            <input type="text" name="title" placeholder="Enter todo..." required>
-            <button type="submit" class="add-btn">Add</button>
+      <form method="post" action="/add" id="add-form">
+        <div class="input-wrapper">
+          <i class="fas fa-pencil-alt"></i>
+          <input
+            type="text"
+            name="title"
+            placeholder="What needs to be done?"
+            required
+            id="new-title"
+          />
+        </div>
+        <button type="submit" class="add-btn">
+          <i class="fas fa-plus"></i>Add
+        </button>
+      </form>
+
+      {% if todos %}
+      <div class="stats">
+        <span><i class="fas fa-list"></i>{{ todos|length }} total</span>
+        <span
+          ><i class="fas fa-check"></i>{{ todos|selectattr('completed')|list|length }} completed</span
+        >
+      </div>
+
+      <div class="controls">
+        <form method="post" action="/clear_completed">
+          <button type="submit" class="clear-btn">
+            <i class="fas fa-trash-alt"></i>Clear completed
+          </button>
         </form>
+      </div>
 
-        {% if todos %}
-        <ul>
-            {% for todo in todos %}
-            <li>
-                {{ todo.title }}
-                <form method="post" action="/delete/{{ todo.id }}">
-                    <button class="delete-btn">Delete</button>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-            <div class="empty">No todos yet 🚀</div>
-        {% endif %}
+      <ul id="todo-list">
+        {% for todo in todos %}
+        <li class="{% if todo.completed %}completed{% endif %}">
+          <div class="left">
+            <form
+              method="post"
+              action="/toggle/{{ todo.id }}"
+              class="toggle-form"
+            >
+              <input
+                type="checkbox"
+                name="completed"
+                onChange="this.form.submit()"
+                {%
+                if
+                todo.completed
+                %}checked{%
+                endif
+                %}
+              />
+            </form>
+            <div class="title" data-id="{{ todo.id }}">{{ todo.title }}</div>
+          </div>
+          <div class="right">
+            <div class="meta">
+              <i class="far fa-clock"></i>
+              {{ todo.created_at if todo.created_at else "" }}
+            </div>
+            <div class="actions">
+              <button class="edit-btn" data-id="{{ todo.id }}">
+                <i class="fas fa-edit"></i>Edit
+              </button>
+              <form
+                method="post"
+                action="/delete/{{ todo.id }}"
+                style="display: inline; margin: 0"
+              >
+                <button class="delete-btn">
+                  <i class="fas fa-times"></i>Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="empty">
+        <i class="fas fa-clipboard-list"></i>
+        <div>No todos yet! Start by adding a task above.</div>
+      </div>
+      {% endif %}
     </div>
-</body>
+
+    <script>
+      document.querySelectorAll(".edit-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const id = btn.getAttribute("data-id");
+          const titleDiv = document.querySelector(
+            '.title[data-id="' + id + '"]',
+          );
+          const current = titleDiv.textContent.trim();
+          const input = document.createElement("input");
+          input.type = "text";
+          input.value = current;
+          input.style.cssText = `
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #3b82f6;
+            background: rgba(15, 23, 42, 0.8);
+            color: #e2e8f0;
+            font-size: 14px;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+          `;
+          titleDiv.replaceWith(input);
+
+          input.focus();
+          input.select();
+          
+          input.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter") {
+              submitEdit(id, input.value);
+            } else if (ev.key === "Escape") {
+              location.reload();
+            }
+          });
+          
+          input.addEventListener("blur", () => submitEdit(id, input.value));
+        });
+      });
+
+      function submitEdit(id, value) {
+        const form = document.createElement("form");
+        form.method = "post";
+        form.action = "/edit/" + id;
+        const inp = document.createElement("input");
+        inp.type = "hidden";
+        inp.name = "title";
+        inp.value = value;
+        form.appendChild(inp);
+        document.body.appendChild(form);
+        form.submit();
+      }
+    </script>
+  </body>
 </html>
