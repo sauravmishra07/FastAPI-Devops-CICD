@@ -48,7 +48,21 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 Open http://127.0.0.1:8000 in your browser.
 
+## API Docs
+
+FastAPI exposes interactive API documentation when the app is running locally.
+
+- Swagger UI: http://127.0.0.1:8000/docs
+- ReDoc: http://127.0.0.1:8000/redoc
+- OpenAPI JSON: http://127.0.0.1:8000/openapi.json
+
+You can fetch the raw OpenAPI spec with curl:
+
+```bash
+curl http://127.0.0.1:8000/openapi.json
+```
+
 ## Notes
 
-- Todos are stored in memory (`todos` list in `app/main.py`) and will be lost when the server restarts.
+- Todos are stored in `app/todos.json` and will persist between server restarts.
 - The template files live in `app/templates` and use Jinja2.
